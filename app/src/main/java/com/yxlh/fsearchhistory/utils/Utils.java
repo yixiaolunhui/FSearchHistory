@@ -1,5 +1,8 @@
 package com.yxlh.fsearchhistory.utils;
 
+import android.view.View;
+import android.view.ViewGroup;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +10,7 @@ import java.util.List;
  * @author zwl
  * @date on 2021/8/7
  */
-public class DataUtils {
+public class Utils {
     public static List<String> getHistoryList() {
         List<String> historyList = new ArrayList<>();
         historyList.add("衣服");
@@ -31,5 +34,22 @@ public class DataUtils {
         historyList.add("视频教程");
         historyList.add("学习");
         return historyList;
+    }
+
+
+    public static  int getViewWidth(View view) {
+        view.measure(0, 0);
+        return view.getMeasuredWidth();
+    }
+
+    /**
+     * 移除父布局中的子布局
+     *
+     * @param view
+     */
+    public static void removeFromParent(View view) {
+        if (view.getParent() != null) {
+            ((ViewGroup) view.getParent()).removeView(view);
+        }
     }
 }

@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.yxlh.fsearchhistory.R;
 import com.yxlh.fsearchhistory.adapter.SearchHistoryAdapter;
-import com.yxlh.fsearchhistory.utils.DataUtils;
+import com.yxlh.fsearchhistory.utils.Utils;
 
 public class TBActivity extends AppCompatActivity {
 
@@ -27,7 +27,7 @@ public class TBActivity extends AppCompatActivity {
     private void initView() {
         TBFoldLayout flowListView = findViewById(R.id.flow_list);
         SearchHistoryAdapter adapter = new SearchHistoryAdapter();
-        adapter.setNewData(DataUtils.getHistoryList());
+        adapter.setNewData(Utils.getHistoryList());
         flowListView.setAdapter(adapter);
     }
 

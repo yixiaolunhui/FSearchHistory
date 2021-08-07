@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.yxlh.fsearchhistory.R;
 import com.yxlh.fsearchhistory.adapter.SearchHistoryAdapter;
-import com.yxlh.fsearchhistory.utils.DataUtils;
+import com.yxlh.fsearchhistory.utils.Utils;
 
 /**
  * 京东搜索历史
@@ -31,7 +31,7 @@ public class JDActivity extends AppCompatActivity {
     private void initView() {
         JDFoldLayout flowListView = findViewById(R.id.flow_list);
         SearchHistoryAdapter adapter = new SearchHistoryAdapter();
-        adapter.setNewData(DataUtils.getHistoryList());
+        adapter.setNewData(Utils.getHistoryList());
         flowListView.setAdapter(adapter);
     }
 

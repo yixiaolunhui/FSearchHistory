@@ -2,11 +2,12 @@ package com.yxlh.fsearchhistory.jd;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.yxlh.fsearchhistory.R;
+import com.yxlh.fsearchhistory.utils.Utils;
 import com.yxlh.lib_search_history.FlowListView;
 
 /**
@@ -42,37 +43,39 @@ public class JDFoldLayout extends FlowListView {
 
         setOnFoldChangedListener((canFold, fold, index, surplusWidth) -> {
             if (canFold) {
-                removeFromParent(downFoldView);
+                Utils.removeFromParent(downFoldView);
                 addView(downFoldView);
                 if (fold) {
-                    removeFromParent(upFoldView);
-                    //当剩余空间大于等于展开View宽度直接加入index+1
-                    if (width(upFoldView) > surplusWidth) {
-                        addView(upFoldView, index);
-                    } else { //当剩余空间小于展开View宽度直接加入index
-                        addView(upFoldView, index + 1);
-                    }
+                    Utils.removeFromParent(upFoldView);
+                    int upIndex = index(index, surplusWidth);
+                    addView(upFoldView, upIndex);
                 } else {
-                    removeFromParent(downFoldView);
+                    Utils.removeFromParent(downFoldView);
                     addView(downFoldView);
                 }
             }
         });
     }
 
-    private int width(View view) {
-        view.measure(0, 0);
-        return view.getMeasuredWidth();
+    private int index(int index, int surplusWidth) {
+        int upIndex = index;
+        int upWidth = Utils.getViewWidth(upFoldView);
+        //当剩余空间大于等于展开View宽度直接加入index+1
+        if (surplusWidth >= upWidth) {
+            upIndex = index + 1;
+        } else { //找到对应的位置
+            for (int i = index; i >= 0; i--) {
+                View view = getChildAt(index);
+                int viewWidth = Utils.getViewWidth(view);
+                upWidth -= viewWidth;
+                if (upWidth <= 0) {
+                    upIndex = i;
+                    break;
+                }
+            }
+        }
+        return upIndex;
     }
 
-    /**
-     * 移除父布局中的子布局
-     *
-     * @param view
-     */
-    private void removeFromParent(View view) {
-        if (view.getParent() != null) {
-            ((ViewGroup) view.getParent()).removeView(view);
-        }
-    }
+
 }

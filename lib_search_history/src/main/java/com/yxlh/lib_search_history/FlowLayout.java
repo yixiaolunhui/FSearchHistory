@@ -3,6 +3,7 @@ package com.yxlh.lib_search_history;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -193,6 +194,7 @@ public class FlowLayout extends ViewGroup {
                         height += lineHeight;
                         newFoldState = true;
                         surplusWidth = widthSize - lineWidth - mHorizontalSpacing;
+                       // foldIndex = i;
                         break;
                     }
                     //重新开启新行，开始记录
@@ -219,6 +221,10 @@ public class FlowLayout extends ViewGroup {
         //根据计算的值重新设置
         setMeasuredDimension(widthMode == MeasureSpec.EXACTLY ? widthSize : width,
                 heightMode == MeasureSpec.EXACTLY ? heightSize : height);
+
+        Log.e("1111111","widthSize="+widthSize);
+        Log.e("1111111","lineWidth="+lineWidth);
+        Log.e("1111111","mHorizontalSpacing="+mHorizontalSpacing);
         //折叠状态
         changeFold(line > mFoldLines, newFoldState, foldIndex, surplusWidth);
     }

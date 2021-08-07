@@ -8,9 +8,7 @@ import android.os.Bundle;
 
 import com.yxlh.fsearchhistory.R;
 import com.yxlh.fsearchhistory.adapter.SearchHistoryAdapter;
-import com.yxlh.fsearchhistory.jd.JDActivity;
-import com.yxlh.fsearchhistory.jd.JDFoldLayout;
-import com.yxlh.fsearchhistory.utils.DataUtils;
+import com.yxlh.fsearchhistory.utils.Utils;
 
 /**
  * 拼多多
@@ -32,7 +30,7 @@ public class PDDActivity extends AppCompatActivity {
     private void initView() {
         PDDFoldLayout flowListView = findViewById(R.id.flow_list);
         SearchHistoryAdapter adapter = new SearchHistoryAdapter();
-        adapter.setNewData(DataUtils.getHistoryList());
+        adapter.setNewData(Utils.getHistoryList());
         flowListView.setAdapter(adapter);
     }
 
