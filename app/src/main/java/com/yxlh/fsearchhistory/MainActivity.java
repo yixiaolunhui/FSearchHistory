@@ -10,7 +10,7 @@ import com.yxlh.fsearchhistory.pdd.PDDActivity;
 import com.yxlh.fsearchhistory.tb.TBActivity;
 
 /**
- * @author zwl
+ * @author yxlh
  * @date on 2021/6/5
  */
 public class MainActivity extends AppCompatActivity {
