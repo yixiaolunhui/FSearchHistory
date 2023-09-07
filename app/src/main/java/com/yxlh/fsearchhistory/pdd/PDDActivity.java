@@ -1,13 +1,18 @@
 package com.yxlh.fsearchhistory.pdd;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatEditText;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.yxlh.fsearchhistory.R;
 import com.yxlh.fsearchhistory.adapter.SearchHistoryAdapter;
+import com.yxlh.fsearchhistory.jd.JDActivity;
 import com.yxlh.fsearchhistory.utils.Utils;
 
 /**
@@ -32,6 +37,18 @@ public class PDDActivity extends AppCompatActivity {
         SearchHistoryAdapter adapter = new SearchHistoryAdapter();
         adapter.setNewData(Utils.getHistoryList());
         flowListView.setAdapter(adapter);
+
+        AppCompatEditText et = findViewById(R.id.et);
+        AppCompatButton add = findViewById(R.id.add);
+        add.setOnClickListener(v -> {
+            String content = et.getText().toString();
+            if (TextUtils.isEmpty(content)) {
+                Toast.makeText(PDDActivity.this, "请输入内容", Toast.LENGTH_LONG).show();
+                return;
+            }
+            adapter.addData(content);
+        });
+
     }
 
 }

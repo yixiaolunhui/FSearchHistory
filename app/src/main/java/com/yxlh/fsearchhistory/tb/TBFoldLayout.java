@@ -16,6 +16,10 @@ import com.yxlh.lib_search_history.FlowListView;
  */
 public class TBFoldLayout extends FlowListView {
     private View upFoldView;
+    private boolean canFold;
+    private boolean fold;
+    private int index;
+    private int surplusWidth;
 
     public TBFoldLayout(Context context) {
         this(context, null);
@@ -34,13 +38,28 @@ public class TBFoldLayout extends FlowListView {
         });
 
         setOnFoldChangedListener((canFold, fold, index, surplusWidth) -> {
-            if (canFold) {
-                if (fold) {
-                    Utils.removeFromParent(upFoldView);
-                    addView(upFoldView, index(index, surplusWidth));
-                }
-            }
+            this.canFold = canFold;
+            this.fold = fold;
+            this.index = index;
+            this.surplusWidth = surplusWidth;
+            refreshFoldView();
         });
+    }
+
+
+    @Override
+    public void updateView() {
+        super.updateView();
+        refreshFoldView();
+    }
+
+    private void refreshFoldView() {
+        Utils.removeFromParent(upFoldView);
+        if (canFold) {
+            if (fold) {
+                addView(upFoldView, index(index, surplusWidth));
+            }
+        }
     }
 
     private int index(int index, int surplusWidth) {

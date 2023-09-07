@@ -2,6 +2,7 @@ package com.yxlh.lib_search_history;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -38,13 +39,14 @@ public class FlowListView extends FlowLayout implements FlowAdapter.OnDataChange
     }
 
 
-    private void updateView() {
+    public void updateView() {
         removeAllViews();
         if (null == flowAdapter) {
             throw new RuntimeException("adapter cannot be empty");
         }
         int count = flowAdapter.getCount();
 
+        Log.e("234234","FlowListView updateView count= "+count);
         for (int i = 0; i < count; i++) {
             View tagView = flowAdapter.getView(this, flowAdapter.getItem(i), i);
             tagView.setTag(flowAdapter.getItem(i));

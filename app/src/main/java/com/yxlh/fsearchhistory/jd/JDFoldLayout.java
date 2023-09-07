@@ -2,7 +2,6 @@ package com.yxlh.fsearchhistory.jd;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -18,6 +17,10 @@ import com.yxlh.lib_search_history.FlowListView;
 public class JDFoldLayout extends FlowListView {
     private View upFoldView;
     private View downFoldView;
+    private boolean canFold;
+    private boolean fold;
+    private int index;
+    private int surplusWidth;
 
     public JDFoldLayout(Context context) {
         this(context, null);
@@ -42,19 +45,34 @@ public class JDFoldLayout extends FlowListView {
         });
 
         setOnFoldChangedListener((canFold, fold, index, surplusWidth) -> {
-            if (canFold) {
+            this.canFold = canFold;
+            this.fold = fold;
+            this.index = index;
+            this.surplusWidth = surplusWidth;
+            refreshFoldView();
+        });
+    }
+
+    @Override
+    public void updateView() {
+        super.updateView();
+        refreshFoldView();
+    }
+
+    private void refreshFoldView() {
+        Utils.removeFromParent(upFoldView);
+        Utils.removeFromParent(downFoldView);
+        if (canFold) {
+            addView(downFoldView);
+            if (fold) {
+                Utils.removeFromParent(upFoldView);
+                int upIndex = index(index, surplusWidth);
+                addView(upFoldView, upIndex);
+            } else {
                 Utils.removeFromParent(downFoldView);
                 addView(downFoldView);
-                if (fold) {
-                    Utils.removeFromParent(upFoldView);
-                    int upIndex = index(index, surplusWidth);
-                    addView(upFoldView, upIndex);
-                } else {
-                    Utils.removeFromParent(downFoldView);
-                    addView(downFoldView);
-                }
             }
-        });
+        }
     }
 
     private int index(int index, int surplusWidth) {
