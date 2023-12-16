@@ -69,7 +69,7 @@ public class PDDFoldLayout extends FlowListView {
             upIndex = index + 1;
         } else { //找到对应的位置
             for (int i = index; i >= 0; i--) {
-                View view = getChildAt(index);
+                View view = getChildAt(i);
                 int viewWidth = Utils.getViewWidth(view);
                 upWidth -= viewWidth;
                 if (upWidth <= 0) {
